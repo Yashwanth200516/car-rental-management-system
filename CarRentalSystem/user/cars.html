@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Available Cars</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">🚗 CarRental</div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="cars.html">Cars</a>
+    </nav>
+</header>
+
+<section style="padding:40px;text-align:center;">
+    <h1>Available Cars</h1>
+    <p style="color:#cbd5f5;">Cars added by admin</p>
+</section>
+
+<section class="features" id="carList">
+    <!-- Cars will load here -->
+</section>
+
+<script>
+let cars = JSON.parse(localStorage.getItem("cars")) || [];
+let carList = document.getElementById("carList");
+
+if (cars.length === 0) {
+    carList.innerHTML = "<p style='text-align:center;'>No cars available</p>";
+} else {
+    let html = "";
+    cars.forEach((car, index) => {
+        html += `
+        <div class="feature">
+            <img src="images/${car.image}" class="car-img">
+            <h3>${car.name}</h3>
+            <p class="price">₹${car.price} / day</p>
+            <a href="book.html?car=${index + 1}&price=${car.price}" 
+               class="btn primary">Book Now</a>
+        </div>`;
+    });
+    carList.innerHTML = html;
+}
+</script>
+
+</body>
+</html>

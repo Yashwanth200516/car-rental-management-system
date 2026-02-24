@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Bill</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">🚗 CarRental</div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="cars.html">Cars</a>
+    </nav>
+</header>
+
+<section style="padding:50px;display:flex;justify-content:center;">
+    <div class="bill-box">
+        <h2>Booking Receipt</h2>
+        <hr>
+
+        <p><b>Name:</b> <span id="bname"></span></p>
+        <p><b>Phone:</b> <span id="bphone"></span></p>
+        <p><b>Car ID:</b> <span id="bcar"></span></p>
+        <p><b>Price / Day:</b> ₹<span id="bprice"></span></p>
+        <p><b>Days:</b> <span id="bdays"></span></p>
+
+        <hr>
+        <h3>Total Amount: ₹<span id="btotal"></span></h3>
+
+        <a href="cars.html" class="btn primary" style="margin-top:15px;display:inline-block;">
+            Book Another Car
+        </a>
+    </div>
+</section>
+
+<script>
+const data = JSON.parse(localStorage.getItem("booking"));
+
+if (!data) {
+    alert("No booking found!");
+    window.location.href = "cars.html";
+} else {
+    document.getElementById("bname").innerText = data.name;
+    document.getElementById("bphone").innerText = data.phone;
+    document.getElementById("bcar").innerText = data.carid;
+    document.getElementById("bprice").innerText = data.price;
+    document.getElementById("bdays").innerText = data.days;
+
+    const total = data.price * data.days;
+    document.getElementById("btotal").innerText = total;
+}
+</script>
+
+</body>
+</html>

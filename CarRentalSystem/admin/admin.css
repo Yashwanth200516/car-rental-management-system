@@ -1,0 +1,56 @@
+body {
+    background: #020617;
+    color: white;
+    font-family: Arial;
+}
+
+.login-box {
+    width: 320px;
+    margin: 100px auto;
+    background: #0f172a;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.login-box input,
+.login-box button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+button {
+    background: #38bdf8;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.navbar {
+    background: #0f172a;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+}
+
+.container {
+    padding: 30px;
+}
+
+table {
+    width: 100%;
+    margin-top: 20px;
+    background: #0f172a;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #020617;
+}

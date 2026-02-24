@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+
+<!-- 🔐 STEP 1: LOGIN CHECK -->
+<script>
+if (sessionStorage.getItem("adminLoggedIn") !== "true") {
+    alert("Please login first");
+    window.location.href = "admin-login.html";
+}
+</script>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">Admin Dashboard</div>
+    <div>
+        <a href="admin-add-car.html">Add Car</a>
+        <a href="#" onclick="logout()">Logout</a>
+    </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container">
+
+    <h2>Total Cars: <span id="totalCars">0</span></h2>
+
+    <h3>Cars List</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Car Name</th>
+                <th>Price / Day</th>
+                <th>Image</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody id="carTable">
+            <!-- Cars will appear here -->
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+/* STEP 2: LOGOUT */
+function logout() {
+    sessionStorage.removeItem("adminLoggedIn");
+    window.location.href = "admin-login.html";
+}
+
+/* STEP 3: READ CARS FROM STORAGE */
+let cars = JSON.parse(localStorage.getItem("cars")) || [];
+
+/* SHOW TOTAL CARS */
+document.getElementById("totalCars").innerText = cars.length;
+
+/* STEP 4: DISPLAY CARS */
+function loadCars() {
+    let table = document.getElementById("carTable");
+    let rows = "";
+
+    cars.forEach((car, index) => {
+        rows += `
+            <tr>
+                <td>${car.name}</td>
+                <td>₹${car.price}</td>
+                <td>${car.image}</td>
+                <td>
+                    <button onclick="deleteCar(${index})"
+                        style="background:red;color:white;
+                        border:none;padding:5px 10px;cursor:pointer;">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+
+    table.innerHTML = rows || "<tr><td colspan='4'>No cars added</td></tr>";
+}
+
+/* STEP 5: DELETE CAR */
+function deleteCar(index) {
+    if (confirm("Delete this car?")) {
+        cars.splice(index, 1);   // remove car
+        localStorage.setItem("cars", JSON.stringify(cars));
+        document.getElementById("totalCars").innerText = cars.length;
+        loadCars();              // refresh table
+    }
+}
+
+/* LOAD ON PAGE START */
+loadCars();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Car</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">🚗 CarRental</div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="cars.html">Cars</a>
+    </nav>
+</header>
+
+<section class="hero" style="min-height:70vh;">
+    <div class="hero-text">
+        <h1>Book Your Car</h1>
+        <p>Fill the details below</p>
+
+        <form class="booking-form" onsubmit="goToBill(event)">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="text" id="phone" placeholder="Phone Number" required>
+
+            <input type="text" id="carid" placeholder="Car ID" readonly>
+            <input type="text" id="price" placeholder="Price per Day" readonly>
+
+            <input type="number" id="days" placeholder="Number of Days" required>
+
+            <button type="submit" class="btn primary">Confirm Booking</button>
+        </form>
+    </div>
+</section>
+
+<script>
+/* GET DATA FROM URL */
+const params = new URLSearchParams(window.location.search);
+document.getElementById("carid").value = params.get("car");
+document.getElementById("price").value = params.get("price");
+
+/* SAVE & GO TO BILL */
+function goToBill(e) {
+    e.preventDefault();
+
+    const booking = {
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        carid: document.getElementById("carid").value,
+        price: document.getElementById("price").value,
+        days: document.getElementById("days").value
+    };
+
+    localStorage.setItem("booking", JSON.stringify(booking));
+    window.location.href = "bill.html";
+}
+</script>
+
+</body>
+</html>

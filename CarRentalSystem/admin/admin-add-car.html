@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Car</title>
+    <link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+
+<!-- 🔐 LOGIN PROTECTION -->
+<script>
+if (sessionStorage.getItem("adminLoggedIn") !== "true") {
+    alert("Access denied! Please login as admin.");
+    window.location.href = "admin-login.html";
+}
+</script>
+
+<div class="navbar">
+    <div class="logo">Add New Car</div>
+    <div>
+        <a href="./admin-dashboard.html">Dashboard</a>
+    </div>
+</div>
+
+<div class="login-box">
+    <h2>Add Car</h2>
+
+    <input type="text" id="carName" placeholder="Car Name">
+    <input type="number" id="carPrice" placeholder="Price per Day">
+    <input type="text" id="carImage" placeholder="Image file name (city.jpg)">
+
+    <button onclick="addCar()">Add Car</button>
+</div>
+
+<script>
+function addCar() {
+    let car = {
+        name: document.getElementById("carName").value,
+        price: document.getElementById("carPrice").value,
+        image: document.getElementById("carImage").value
+    };
+
+    let cars = JSON.parse(localStorage.getItem("cars")) || [];
+    cars.push(car);
+    localStorage.setItem("cars", JSON.stringify(cars));
+
+    alert("Car added successfully!");
+    window.location.href = "admin-dashboard.html";
+}
+</script>
+
+</body>
+</html>
